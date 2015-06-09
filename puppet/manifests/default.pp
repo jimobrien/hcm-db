@@ -14,17 +14,3 @@ postgresql::server::db { 'hcm':
   user     => 'vagrant',
   password => postgresql_password("vagrant", "vagrant")
 }
-postgresql_psql { 'create_users_table':
-  db        => 'hcm',
-  psql_user => 'vagrant',
-  command   => 'CREATE TABLE users_user (
-    id bigserial primary key,
-    name varchar (50) NOT NULL,
-    email varchar (50) NOT NULL,
-    password varchar NOT NULL,
-    role text,
-    status text
-    );
-  ',
-  unless => "SELECT EXISTS( SELECT * FROM information_schema.tables WHERE table_name = 'users_user')"
-}
